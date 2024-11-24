@@ -1,11 +1,5 @@
-<?php
- if(!isset($_SESSION['id'])){
-  header('location: index.php');
- }
-?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -14,16 +8,16 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://c...content-available-to-author-only...e.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://f...content-available-to-author-only...c.com" rel="preconnect">
   <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    href="https://f...content-available-to-author-only...s.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
@@ -41,7 +35,7 @@
 
 </head>
 
-<body>
+<body class="toggle-sidebar">
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -49,14 +43,14 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Admin <?php echo $_SESSION['staff'] == 1 ? "manager" : "else" ; ?></span>
+        <span class="d-none d-lg-block">Admin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <input type="text" class="" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
@@ -214,13 +208,13 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['name']; ?></span>
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6><?php echo $_SESSION['name']; ?></h6>
+              <h6>Kevin Anderson</h6>
               <span>Web Designer</span>
             </li>
             <li>
@@ -260,7 +254,9 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-box-arrow-right"></i>
-                <span><a href='logout.php'>Sign Out</a></span>
+                <span><?php if ( !isset($_SESSION['id'])) {
+                        header('location:../login-signup_dashboard/index.php');
+                        }?>Sign Out</span>
               </a>
             </li>
 
@@ -271,7 +267,8 @@
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
-  
+
+
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
@@ -280,7 +277,7 @@
       <li class="nav-item">
         <a class="nav-link " href="index.php">
           <i class="bi bi-grid"></i>
-          <span>Dashboard </span>
+          <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -290,9 +287,7 @@
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-        <?php
-          if($_SESSION['staff']==1 || $_SESSION['staff']==2){
-          ?>
+
           <li class="nav-item " id="guest-parent">
             <a class=" collapsed" data-bs-target="#icon-guest" data-bs-toggle="collapse" href="#"><span>
                 Manage
@@ -310,13 +305,6 @@
               </li>
             </ul>
           </li>
-          <?php
-            }
-            ?>
-            
-          <?php
-          if($_SESSION['staff']==1 || $_SESSION['staff']==2){
-          ?>
           <li class="nav-item" id="guest-parent">
             <a class=" collapsed" data-bs-target="#icon-room" data-bs-toggle="collapse" href="#"><span>
                 Manage
@@ -335,13 +323,8 @@
               </li>
             </ul>
           </li>
-          <?php
-            }
-            ?>
 
-          <?php
-          if($_SESSION['staff']==1){
-          ?>
+
           <li class="nav-item" id="guest-parent">
             <a class=" collapsed" data-bs-target="#icon-roomEmployee" data-bs-toggle="collapse" href="#"><span>
                 Manage
@@ -359,12 +342,9 @@
              
 
               </li>
-         
             </ul>
           </li>
-          <?php
-            }
-            ?>
+
           <li class="nav-item" id="guest-parent">
             <a class=" collapsed" data-bs-target="#icon-roomService" data-bs-toggle="collapse" href="#"><span>
                 Room
@@ -383,11 +363,18 @@
               </li>
             </ul>
           </li>
+
           
-        
+
+
+
+
+
 
         </ul>
       </li> <!-- End Icons Nav -->
+
+
 
       <li class="nav-heading">Pages</li>
 
@@ -398,8 +385,17 @@
         </a>
       </li><!-- End Profile Page Nav -->
 
+
+
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.php">
+        <a class="nav-link collapsed" href="pages-register.php">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-login.php">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Login</span>
         </a>

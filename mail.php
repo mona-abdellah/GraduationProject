@@ -1,67 +1,57 @@
 <?php
 
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+   require 'mailer/autoload.php';
+   require 'connect.php';
 
-//Load Composer's autoloader
-require 'mailer/autoload.php';
-
-//Create an instance; passing `true` enables exceptions
-$mail = new PHPMailer();
-////////////////////////////////////////////////////////////////////////////////////////////////
-//Server settings
-$mail->isSMTP();                                            //Send using SMTP
-$mail->SMTPDebug = 3;                      //Enable verbose debug output
-$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-$mail->SMTPSecure = "ssl";            //Enable implicit TLS encryption
-
-$mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-$mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-$mail->isHTML(true);  
-
-$mail->Username   = "nourhan123essam@gmail.com";              //SMTP username
-$mail->Password   = 'eqtdjislzfwytmep';                               //SMTP password
+   //recieve data
+   $email_to=mysqli_escape_string($con,$_POST['email']);
+   use PHPMailer\PHPMailer;
+   use PHPMailer\Exception;
+   require 'PHPMailer/Exception.php';
+   require 'PHPMailer/PHPMailer.php';
+   require 'PHPMailer/SMTP.php';
 
 
+   //Load Composer's autoloader
 
-/*require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
-require 'PHPMailer/Exception.php';
+   //Create an instance; passing `true` enables exceptions
+   $mail = new PHPMailer();
+   ////////////////////////////////////////////////////////////////////////////////////////////////
+   //Server settings
+   $mail->isSMTP();                                            //Send using SMTP
+   $mail->SMTPDebug = 3;                      //Enable verbose debug output
+   $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+   $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\Exeption\Exception;
-use PHPMailer\SMTP\SMTP;
+   $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+   $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+   $mail->isHTML(true);  
 
-$mail = new PHPMailer();
-// $SMTP = new SMTP();
+   $mail->Username   = "nourhan123essam@gmail.com";              //SMTP username
+   $mail->Password   = 'eqtdjislzfwytmep';                               //SMTP password
 
+   $mail->setFrom("nourhan123essam@gmail.com");
 
-$mail->SMTPDebug = 4;                               // Enable verbose debug output
+   $hash = md5( rand(100000,999999) );
+   $sql = 'update data set code = "'.$hash.'" where email = "'.$email_to.'"';
+   $result=mysqli_query($con , $sql);
 
-$mail->isSMTP();                                      // Set mailer to use SMTP
-$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-$mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = 'nourhan123essam@gmail.com';                 // SMTP username
-$mail->Password = 'eqtdjislzfwytmep';                           // SMTP password
-                           // Enable TLS encryption, `ssl` also accepted
-$mail->Port = 587;       
-$mail->SMTPSecure = 'tls';                              // TCP port to connect to
+   $mail->isHTML(true);
+   $mail->Subject = 'Reset Password';
+   $mail->Body    = "Verification code : '.$hash.'";
 
-$mail->setFrom("nsam90504@gmail.com");
-$mail->addAddress("nourhan123essam@gmail.com");  
-
-$mail->isHTML();                                  // Set email format to HTML
+   $mail->addAddress("'.$email_to.'"); 
+   $mail->addAddress("nsam90504@gmail.com");  
 
 
-$mail->Subject = 'Here is the subject';
-$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+   if(!$mail->Send()) {
+      echo "Mailer Error: " . $mail->ErrorInfo;
+   } else {
+      //header("Location: verification_code.php");
+      echo "message sent";
+   }
+   /////////////////////////////////////////////////////////////////////
+   //close connection
+   mysqli_close($con);
 
-if(!$mail->Send()) {
-    echo "Mailer Error: " . $mail->ErrorInfo;
- } else {
-    echo "Message has been sent";
- }
- */
+

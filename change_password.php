@@ -35,7 +35,11 @@
                         
                         
                         </div>
-            </form>           
+
+            </form>
+            
+            <p> لتسجيل الدخول ؟<a href="sign_in.html"> إضغط هنا  </a></p> 
+           
                 
            
         

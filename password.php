@@ -12,11 +12,10 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     /////////////////////////////////////////////////////////////////////
       if($pass1 == $pass2)
       {
-        $sql = "update staff set password = '$pass1' where email = '$email_to'";
+        $sql = "update data set password = '$pass1' where email = '$email_to'";
         $result=mysqli_query($con , $sql);
 
-        header("Location: index.php");
-        //echo 'changed';
+        header("Location: signin.php");
        
       }
       else

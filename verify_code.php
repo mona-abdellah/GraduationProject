@@ -7,7 +7,7 @@
     $code=mysqli_escape_string($con,$_POST['code']);
 
     /////////////////////////////////////////////////////////////////////
-      $sql = "select email from staff where code = '$code'";
+      $sql = "select email from data where code = '$code'";
       $result=mysqli_query($con , $sql);
       //$row = mysqli_fetch_assoc($result);
       $num = mysqli_num_rows($result);

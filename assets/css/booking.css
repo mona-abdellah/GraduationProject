@@ -1,0 +1,101 @@
+/* --------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+@import url("http://www.fontstatic.com/f=bahij");
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: #040404;
+    color: #fff;
+    position: relative;
+    background: transparent;
+    direction: rtl;
+    font-family: 'bahij';
+    
+}
+
+img {
+    width: 100%;
+}
+
+
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'bahij';
+}
+
+.p-70 {
+    padding: 70px 0;
+}
+
+.container {
+    overflow: hidden;
+}
+
+/*--------------------------------------------------------------
+# Portfolio
+--------------------------------------------------------------*/
+.booking {
+    background-image: url(../img/photo-1471286274405-579f8d7132d8.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.booking-text>h1 {
+    color: #000000;
+}
+
+.booking-border {
+    border: 1px solid rgba(65, 117, 5, 0.45);
+    background-color: transparent;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.booking-border:focus {
+    box-shadow: 0 0 3px #F8B81C;
+    background-color: transparent;
+    border: none;
+}
+
+.booking-bg {
+    border: 1px solid #F8B81C;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #F8B81C;
+}
+
+.container {
+    position: relative;
+
+}
+
+.booking label {
+    color: black;
+    font-weight: 700;
+}
+
+.option {
+    background-color: #f7ddee;
+    color: black;
+}
+
+.booking .card {
+    height: 0px !important;
+}
+
+.booking .btn {
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+    transition: all .3s;
+    border: 1px solid #F8B81C;
+}
+
+.booking .btn:hover {
+    background-color: #F8B81C;
+}

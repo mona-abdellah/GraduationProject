@@ -1,15 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
-    //start connection to database
-    $con=mysqli_connect('localhost' , 'root' , '' , 'form');
-    if(! $con)
-    {
-        echo mysqli_connect_error();
-        exit;
-    }
-
-    /////////////////////////////////////////////////////////////////////
+  require 'connect.php';
     //recieve data
     $email_to=mysqli_escape_string($con,$_POST['email']);
 
@@ -19,13 +11,15 @@ if($_SERVER['REQUEST_METHOD']=='POST')
       $mail->setFrom("nourhan123essam@gmail.com");
 
       $hash = md5( rand(100000,999999) );
-      $sql = "update staff set code = '.$hash.' where email = '.$email_to.'";
+      $sql = 'update data set code = "'.$hash.'" where email = "'.$email_to.'"';
       $result=mysqli_query($con , $sql);
 
       $mail->Subject = 'Reset Password';
       $mail->Body    = "Verification code : '.$hash.'";
 
-      $mail->addAddress("'.$email_to.'");  
+      $mail->addAddress("'.$email_to.'"); 
+      $mail->addAddress("nsam90504@gmail.com");  
+ 
 
       if(!$mail->Send()) {
          echo "Mailer Error: " . $mail->ErrorInfo;
@@ -34,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
       }
     /////////////////////////////////////////////////////////////////////
     //close connection
-    mysqli_close($con);
+   mysqli_close($con);
 }
 ?>
 
